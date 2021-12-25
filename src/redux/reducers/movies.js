@@ -14,3 +14,14 @@ export const movieReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export const movieOrShowsDetails = (state = {}, { type, payload }) => {
+  switch (type) {
+    case actionTypes.fetchAsyncMovieOrShowsDetails:
+      return { ...state, details: payload };
+    case actionTypes.removeSelectedMovieOrShows:
+      return {};
+    default:
+      return state;
+  }
+};

@@ -1,37 +1,26 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies, fetchShows } from "./redux/action/index";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Home from "./components/Home/Home";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
+import MovieDetail from "./components/MovieDetail/MovieDetail";
+import "./App.scss";
 
 function App() {
-  const dispatch = useDispatch();
-  const allMovies = useSelector((state) => state.allMovies.movie.Search) || [];
-  const allShows = useSelector((state) => state.allMovies.show.Search) || [];
-  useEffect(() => {
-    dispatch(fetchMovies());
-    dispatch(fetchShows());
-  }, []);
-
   return (
-    <div>
-      <h1>App</h1>
-      {allMovies.length > 0 ? (
-        <ul>
-          {allMovies.map((ele, index) => {
-            return <li key={index}>{ele.Title}</li>;
-          })}
-        </ul>
-      ) : (
-        ""
-      )}
-      {allShows.length > 0 ? (
-        <ul>
-          {allShows.map((ele, index) => {
-            return <li key={index}>{ele.Title}</li>;
-          })}
-        </ul>
-      ) : (
-        ""
-      )}
+    <div className="app">
+      <Router>
+        <Header></Header>
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={Home}></Route>
+            <Route exact path="/movie/:imdbID" component={MovieDetail}></Route>
+            <Route component={PageNotFound}></Route>
+          </Switch>
+        </div>
+        <Footer></Footer>
+      </Router>
     </div>
   );
 }

@@ -21,3 +21,21 @@ export const fetchShows = () => {
     dispatch({ type: actionTypes.fetchAsyncShows, payload: response.data });
   };
 };
+
+export const fetchMovieOrShowsDetails = (imdbID) => {
+  return async (dispatch) => {
+    const response = await movieApi.get(
+      `?apiKey=${APIKey}&i=${imdbID}&Plot=full`
+    );
+    dispatch({
+      type: actionTypes.fetchAsyncMovieOrShowsDetails,
+      payload: response.data,
+    });
+  };
+};
+
+export const removeMovieOrShows = () => {
+  return {
+    type: actionTypes.removeSelectedMovieOrShows,
+  };
+};
